@@ -8,7 +8,7 @@ using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
 
-namespace Bot_Application1
+namespace LuisDialog_Stock_Bot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
@@ -21,13 +21,7 @@ namespace Bot_Application1
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                // calculate something for us to return
-                int length = (activity.Text ?? string.Empty).Length;
-
-                // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
-                await connector.Conversations.ReplyToActivityAsync(reply);
+                await Microsoft.Bot.Builder.Dialogs.Conversation.SendAsync(activity, () => new StockLuisDlg.StockDialog());
             }
             else
             {
