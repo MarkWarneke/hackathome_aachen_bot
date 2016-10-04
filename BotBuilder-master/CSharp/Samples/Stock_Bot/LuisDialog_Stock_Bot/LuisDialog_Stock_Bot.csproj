@@ -120,6 +120,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Handlers\GoodbyeHandler.cs" />
+    <Compile Include="Handlers\GreetingHandler.cs" />
     <Compile Include="Handlers\DeductionInfoHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
