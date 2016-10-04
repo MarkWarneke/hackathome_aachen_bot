@@ -22,10 +22,17 @@ namespace StockLuisDlg
             context.Wait(MessageReceived);
         }
 
-        [LuisIntent("getDeductionInfo")]
-        public async Task StockPrice(IDialogContext context, LuisResult result)
+        [LuisIntent("greeting")]
+        public async Task greet(IDialogContext context, LuisResult result)
         {
-            ITaskHandler handler = new DeductionInfoHandler();
+            ITaskHandler handler = new GreetingHandler();
+            await context.PostAsync(await handler.handle(context, result));
+            context.Wait(MessageReceived);
+        }
+        [LuisIntent("goodbye")]
+        public async Task goodbye(IDialogContext context, LuisResult result)
+        {
+            ITaskHandler handler = new GoodbyeHandler();
             await context.PostAsync(await handler.handle(context, result));
             context.Wait(MessageReceived);
         }
