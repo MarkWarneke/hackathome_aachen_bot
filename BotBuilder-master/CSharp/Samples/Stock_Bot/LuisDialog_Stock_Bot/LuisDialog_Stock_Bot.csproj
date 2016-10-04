@@ -120,11 +120,11 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="DeductionInfo.cs" />
+    <Compile Include="Handlers\DeductionInfoHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ITaskHandler.cs" />
+    <Compile Include="Handlers\ITaskHandler.cs" />
     <Compile Include="Luis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Yahoo.cs" />

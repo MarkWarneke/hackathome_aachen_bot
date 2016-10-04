@@ -15,10 +15,17 @@ namespace StockLuisDlg
     public class StockDialog : LuisDialog<object>
     {
         [LuisIntent("getDeductionInfo")]
+        public async Task getDeductionInfo(IDialogContext context, LuisResult result)
+        {
+            ITaskHandler handler = new DeductionInfoHandler();
+            await context.PostAsync(await handler.handle(context, result));
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("getDeductionInfo")]
         public async Task StockPrice(IDialogContext context, LuisResult result)
         {
-            ITaskHandler handler = new DeductionInfo();
-
+            ITaskHandler handler = new DeductionInfoHandler();
             await context.PostAsync(await handler.handle(context, result));
             context.Wait(MessageReceived);
         }
@@ -26,7 +33,7 @@ namespace StockLuisDlg
         [LuisIntent("None")]
         public async Task NoneHandler(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync("I'm sorry, I don't understand");
+            await context.PostAsync("Sorry, what!?");
             context.Wait(MessageReceived);
         }
     }
