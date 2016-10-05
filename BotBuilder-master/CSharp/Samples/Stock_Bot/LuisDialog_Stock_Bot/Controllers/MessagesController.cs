@@ -21,6 +21,7 @@ namespace LuisDialog_Stock_Bot
         {
             if (activity.Type == ActivityTypes.Message)
             {
+
                 await Microsoft.Bot.Builder.Dialogs.Conversation.SendAsync(activity, () => new StockLuisDlg.StockDialog());
             }
             else
@@ -55,8 +56,7 @@ namespace LuisDialog_Stock_Bot
             }
             else if (message.Type == ActivityTypes.Ping)
             {
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-                return response;
+
             }
 
             return null;
