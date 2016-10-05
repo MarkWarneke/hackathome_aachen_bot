@@ -33,6 +33,7 @@ namespace LuisDialog_Stock_Bot
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
+
         }
 
         private Activity HandleSystemMessage(Activity message)

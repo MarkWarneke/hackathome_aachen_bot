@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StockLuisDlg
@@ -59,12 +60,12 @@ namespace StockLuisDlg
         [LuisIntent("changeDeduction")]
         public async Task deductionChange(IDialogContext context, LuisResult result)
         {
-            PromptDialog.Number(context, AfterConfirming_TurnOffAlarm, "Auf welchen Betrag möchtest du deinen Abschlag ändern?");
+            PromptDialog.Number(context, AfterConfirming_TurnOffAlarm, TextPersonalizer.parse(context, "Auf welchen Betrag möchtest du deinen Abschlag ändern?"));
         }
 
         public async Task AfterConfirming_TurnOffAlarm(IDialogContext context, IAwaitable<long> value)
         {
-            await context.PostAsync($"Kein Problem, ich habe deinen Abschlag auf {await value}€ geändert.");
+            await context.PostAsync(TextPersonalizer.parse(context, $"Kein Problem, ich habe deinen Abschlag auf {await value}€ geändert."));
             context.Wait(MessageReceived);
         }
 
@@ -110,7 +111,7 @@ namespace StockLuisDlg
         [LuisIntent("imfree")]//Yes, tell me about my options!
         public async Task free(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync("Cool. Well, the most fitting subscription for you would be the 'Ultra Mega Senior Premium Pack for Family and E-Mobility'. You would save 5$/month just by switching. Does that sound good to you?");   
+            await context.PostAsync("Cool. Well, the most fitting subscription for you would be the 'Ultra Mega Senior Premium Pack for Family and E-Mobility'. You would save 5$/month just by switching. Does that sound good to you?");
             context.Wait(MessageReceived);
         }
         [LuisIntent("packetplease")]//Wow, Thanks for looking this up. I would like to change my service please.
@@ -139,17 +140,25 @@ namespace StockLuisDlg
             await context.PostAsync("Sorry, what?");
             context.Wait(MessageReceived);
         }
+
+        [LuisIntent("Keyword")]
+        public async Task KeywordHandler(IDialogContext context, LuisResult result)
+        {
+            PromptDialog.Text(context, AfterConfirming_TurnOffAlarm2, "Hier ist die erste Nachricht!");
+        }
+
+        public async Task AfterConfirming_TurnOffAlarm2(IDialogContext context, IAwaitable<string> value)
+        {
+            await context.PostAsync($"Zweite Nachricht. Keine Analyse!");
+            context.Wait(MessageReceived);
+        }
+
         [LuisIntent("")]
         public async Task PicHandler(IDialogContext context, LuisResult result)
         {
             await context.PostAsync("Thank you, your account has been changed. Changes will take effect from the next month on. Thank you for re-choosing innogy! Is there anything else on your mind?");
-            context.Wait(MessageReceived);
-        }
+            //await context.PostAsync("Sorry, what!?");
 
-        [LuisIntent("HeyDu")]
-        public async Task HeyDuHandler(IDialogContext context, LuisResult result)
-        {
-            await context.PostAsync("Hey du!");
             context.Wait(MessageReceived);
         }
     }

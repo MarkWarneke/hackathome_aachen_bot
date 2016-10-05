@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis.Models;
+using LuisDialog_Stock_Bot;
 
 namespace StockLuisDlg
 {
@@ -9,7 +10,7 @@ namespace StockLuisDlg
     {
         public async Task<string> handle(IDialogContext context, LuisResult result)
         {
-            return "Your current deduction is being calculated with '(price x usage + base_price) / 12. For you personally, that means (50x50+50)/12 = 212,5€.";
+            return TextPersonalizer.parse(context, "Dein aktueller Abschlag liegt bei 212,51€.");
         }
 
     }
