@@ -43,11 +43,6 @@ namespace WebApplication
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
-
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowSpecificOrigin"));
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -61,6 +56,7 @@ namespace WebApplication
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseMvc();
+            app.UseStaticFiles();
         }
     }
 }

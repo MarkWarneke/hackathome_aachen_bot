@@ -9,7 +9,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestMethod1()
         {
-          Familie Familie = new Familie();
+        
         }
     }
 }

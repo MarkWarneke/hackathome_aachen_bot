@@ -4,7 +4,9 @@ import { Observable }     from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
-    private url = 'http://shruggieuserrest.azurewebsites.de/api/users/';  // URL to web API
+    private remote = 'http://shruggieuserrest.azurewebsites.de/api/users/';  // URL to web API
+    private local = 'http://localhost:2619/api/users/';  // URL to web API
+    private url = this.local;
     constructor (private http: Http) {}
 
     getUser (term: any) {

@@ -10,23 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/operator/toPromise');
+var user_1 = require('./user');
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
         this.remote = 'http://shruggieuserrest.azurewebsites.de/api/users/'; // URL to web API
-        this.local = 'http://localhost:2619/api/users/'; // URL to web API
+        this.local = 'api/users/'; // URL to web API
         this.url = this.local;
     }
+    UserService.prototype.search = function (term) {
+        return this.http
+            .get("api/users/" + term)
+            .map(function (r) { return r.json().data; });
+    };
     UserService.prototype.getUser = function (term) {
         return this.http.get(this.url + term)
-            .map(this.extractData)
+            .toPromise()
+            .then(this.extractData)
             .catch(this.handleError);
     };
     UserService.prototype.extractData = function (res) {
         var body = res.json();
-        console.log(body);
-        return body.data || {};
+        console.log("body", body);
+        console.log("new User", new user_1.User(body.id, body.chat_s, body.person));
+        return new user_1.User(body.id, body.chat_s, body.person);
     };
     UserService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
@@ -34,7 +42,7 @@ var UserService = (function () {
         var errMsg = (error.message) ? error.message :
             error.status ? error.status + " - " + error.statusText : 'Server error';
         console.error(errMsg); // log to console instead
-        return Observable_1.Observable.throw(errMsg);
+        return Promise.reject(errMsg);
     };
     UserService = __decorate([
         core_1.Injectable(), 

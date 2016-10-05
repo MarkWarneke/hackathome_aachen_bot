@@ -128,7 +128,7 @@ namespace WebApplication.Models
             this.User.sozial.familie.stand = "verheiratet";
             this.User.sozial.familie.kinder = "2";
 
-            this.User.Chat_s = "";
+            this.User.Chat_s = "5SJaZgsSDyE.cwA.rDg.LATmnhfb8WqKNFC2MfheEs8WqH9XxY7ATLMi6xqc-48";
 
             this.User.Deduction = new Deduction();
             this.User.Deduction.value = 1337;

@@ -1,0 +1,10 @@
+﻿<h1>User Data</h1>
+<p><i>Fetches after each keystroke</i></p>
+<input #term (keyup)="search(term.value)" />
+<!-- <input #searchBox id="search-box" (keyup)="getUser(searchBox.value)" />-->
+<div *ngIf="currentUser">
+    <h2>{{currentUser.chat_s}} details!</h2>
+    <div>
+        <label>id: </label>{{currentUser.id}}
+    </div>
+</div>
