@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Logic;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
@@ -19,13 +21,14 @@ namespace WebApplication.Controllers
         }
 
         // GET api/values/5
+        [EnableCors("AllowSpecificOrigin")]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             User User = new UserManager().findById(id);
             if (User  != null)
             {
-                return Ok(User);
+                return Json(User);
             }
             return NotFound(id);
         }
