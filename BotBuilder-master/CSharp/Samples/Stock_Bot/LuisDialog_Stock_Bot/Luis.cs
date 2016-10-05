@@ -1,4 +1,5 @@
-﻿using Microsoft.Bot.Builder.Dialogs;
+﻿using LuisDialog_Stock_Bot;
+using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Luis;
 using Microsoft.Bot.Builder.Luis.Models;
 using Microsoft.Bot.Connector;
@@ -94,6 +95,13 @@ namespace StockLuisDlg
         {
             decimal score = await checkEmotionalStatus("Echt scheiße hier");
             await context.PostAsync("Sorry, what!?");
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("HeyDu")]
+        public async Task HeyDuHandler(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync("Hey du!");
             context.Wait(MessageReceived);
         }
     }
