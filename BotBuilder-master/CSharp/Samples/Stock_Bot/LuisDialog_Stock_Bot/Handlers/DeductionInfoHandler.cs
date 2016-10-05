@@ -9,7 +9,7 @@ namespace StockLuisDlg
     {
         public async Task<string> handle(IDialogContext context, LuisResult result)
         {
-            return await Task.FromResult("Dein aktueller Abschlag ist: 42 Euro!");
+            return "Your current deduction is being calculated with '(price x usage + base_price) / 12. For you personally, that means (50x50+50)/12 = 212,5€.";
         }
 
     }
