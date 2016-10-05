@@ -119,7 +119,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BatchInput.cs" />
+    <Compile Include="BatchResult.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="DocumentInput.cs" />
+    <Compile Include="Handlers\DeductionChangeHandler.cs" />
     <Compile Include="Handlers\GoodbyeHandler.cs" />
     <Compile Include="Handlers\GreetingHandler.cs" />
     <Compile Include="Handlers\DeductionInfoHandler.cs" />
