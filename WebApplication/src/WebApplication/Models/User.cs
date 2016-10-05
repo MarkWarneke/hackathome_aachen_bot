@@ -30,12 +30,18 @@ namespace WebApplication.Models
         public Addresse addresse { get; set; }
         public string geburtsdatum { get; set; }
         public string nachname { get; set; }
+
     }
 
     public class Karriere
     {
         public string einkommen { get; set; }
         public string sektor { get; set; }
+    }
+
+    public class Kontakt
+    {
+        public string handynr { get; set; }
     }
 
     public class User
@@ -47,7 +53,7 @@ namespace WebApplication.Models
         public List<Chat> ChatMessages { get; set; }
         public Karriere karriere { get; set; }
         public String Chat_s;
-
+        public Kontakt Kontakt;
         public Deduction Deduction;
     }
 
@@ -106,6 +112,10 @@ namespace WebApplication.Models
             this.User.Person.vorname = "Markus";
             this.User.Person.nachname = "Jansen";
             this.User.Person.geburtsdatum = "12.07.1960";
+
+            this.User.Kontakt = new Kontakt();
+            this.User.Kontakt.handynr = "";
+
             this.User.Person.addresse = new Addresse();
             this.User.Person.addresse.postleitzahl = "53429";
             this.User.Person.addresse.stadt = "DD";

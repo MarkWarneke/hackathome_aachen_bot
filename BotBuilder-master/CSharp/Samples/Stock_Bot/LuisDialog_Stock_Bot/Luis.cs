@@ -63,9 +63,13 @@ namespace StockLuisDlg
             PromptDialog.Number(context, AfterConfirming_TurnOffAlarm, TextPersonalizer.parse(context, "Auf welchen Betrag möchtest du deinen Abschlag ändern?"));
         }
 
-        public async Task AfterConfirming_TurnOffAlarm(IDialogContext context, IAwaitable<long> value)
+        public async Task AfterConfirming_TurnOffAlarm(IDialogContext context, IAwaitable<long> argument)
         {
-            await context.PostAsync(TextPersonalizer.parse(context, $"Kein Problem, ich habe deinen Abschlag auf {await value}€ geändert."));
+            ConsumingRest rest = new ConsumingRest("http://shruggieuserrest.azurewebsites.de/");
+
+            await rest.postObj("api/users/111/deduction", new DataObject() { value = await argument });
+            
+            await context.PostAsync(TextPersonalizer.parse(context, $"Kein Problem, ich habe deinen Abschlag auf {await argument}€ geändert."));
             context.Wait(MessageReceived);
         }
 

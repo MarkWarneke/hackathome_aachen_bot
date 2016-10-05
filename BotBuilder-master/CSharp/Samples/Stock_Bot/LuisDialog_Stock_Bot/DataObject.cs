@@ -3,5 +3,6 @@
     public class DataObject
     {
         public string message;
+        public long value;
     }
 }
