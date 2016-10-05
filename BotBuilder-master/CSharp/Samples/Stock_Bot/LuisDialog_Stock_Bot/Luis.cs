@@ -81,55 +81,66 @@ namespace StockLuisDlg
         public async Task goodbye(IDialogContext context, LuisResult result)
         {
             ITaskHandler handler = new GoodbyeHandler();
-            await context.PostAsync(await handler.handle(context, result));
+            PromptDialog.Text(context, getPhoneNumber, "Eine Sache noch: Wir haben bemerkt, dass du deine Telefonnummer noch nicht hinterlegt hast. Möchtest du uns deine Telefonnummer geben und teil unseres aktiven Kundenbetreuungsprogramms werden? Das würde unter anderem bedeuten, dass wir dich besser verstehen und beraten können. Infos unter: URL");
+        }
+        //Ja, meine Nummer lautet 001203010231 und ich würde gerne teilnehmen.
+        public async Task getPhoneNumber(IDialogContext context, IAwaitable<string> value)
+        {
+            await context.PostAsync("Danke dir, ich vermerke das. Bis zum nächsten mal!");
+            context.Wait(MessageReceived);
+        }
+
+        public async Task startSecondHalf(IDialogContext context, LuisResult result)
+        {
             System.Threading.Thread.Sleep(20000);
-            await context.PostAsync("Hi Markus! I have noticed that you've used a lot more power lately. Did you know that you could save 60€/year right now, if you were to switch subscription? Innogy offers great savings for people with hybrid cars. Are you free right now?");
-            context.Wait(MessageReceived);
+            PromptDialog.Text(context, notfree, "Hi Markus! Wir haben bemerkt, dass du neuerdings sehr viel Energie verbrauchst. Grade für Haushalte mit Elektroautos haben wir ein gutes Angebot, und du könntest bis zu 60€/Jahr sparen! Hast du grade Zeit?");
+
         }
 
-        [LuisIntent("notfree")]//I am currently busy, can we talk later?
-        public async Task notfree(IDialogContext context, LuisResult result)
+        //I am currently busy, can we talk later?
+        public async Task notfree(IDialogContext context, IAwaitable<string> value)
         {
-            await context.PostAsync("Sure thing! How about next wednesday?");//User seems to have time on wednesday, based on previous time of contact
-            context.Wait(MessageReceived);
+            await context.PostAsync("Okay, wie wäre es mit nächstem Mittwoch?");//User seems to have time on wednesday, based on previous time of contact
+
         }
 
-        [LuisIntent("yeswednesday")]//Wednesday sounds good!
-        public async Task wednesday(IDialogContext context, LuisResult result)
+        //Wednesday sounds good!
+        public async Task wednesday(IDialogContext context, IAwaitable<string> value)
         {
-            await context.PostAsync("Perfect. I will talk to you at around six.");
-            context.Wait(MessageReceived);
+            PromptDialog.Text(context, free, "Perfekt, ich melde mich wie immer gegen sechs.");
+
         }
-        [LuisIntent("secondgoodbye")]//Awesome, thank you for your help! That's it. Have a good day.
-        public async Task secondgoodbye(IDialogContext context, LuisResult result)
+        //Awesome, thank you for your help! That's it. Have a good day.
+        public async Task secondgoodbye(IDialogContext context, IAwaitable<string> value)
         {
-            await context.PostAsync("You are welcome, have a good day, too.");
-            System.Threading.Thread.Sleep(4000);
-            await context.PostAsync("Hello Markus. Can you spare a moment to talk about your subscription?");//Check if online recently
-            context.Wait(MessageReceived);
+            PromptDialog.Text(context,free,"Kein Problem, hab noch einen schönen Tag.");
+
         }
-        [LuisIntent("imfree")]//Yes, tell me about my options!
-        public async Task free(IDialogContext context, LuisResult result)
+        public async Task startSecondHalf(IDialogContext context, IAwaitable<string> value)//CAll on typing
         {
-            await context.PostAsync("Cool. Well, the most fitting subscription for you would be the 'Ultra Mega Senior Premium Pack for Family and E-Mobility'. You would save 5$/month just by switching. Does that sound good to you?");
-            context.Wait(MessageReceived);
+            System.Threading.Thread.Sleep(5000);
+            PromptDialog.Text(context, free, "Hi Markus! Hast du heute kurz Zeit um über deinen Vertrag zu sprechen?");//Check if online recently
         }
-        [LuisIntent("packetplease")]//Wow, Thanks for looking this up. I would like to change my service please.
-        public async Task packets(IDialogContext context, LuisResult result)
+        //Yes, tell me about my options!
+        public async Task free(IDialogContext context, IAwaitable<string> value)
         {
-            await context.PostAsync("Okay, I will however need legal authentication from you to confirm your subscription inquiry. Please send a picture of your signiture next to the following text: 'inq12442233'");
-            context.Wait(MessageReceived);
+            PromptDialog.Text(context, packets,"Cool. Der zu dir passenste Vertrag wäre der 'SuperMegaSeniorenEmobility-Paket für Familien'. So könntest du 67€ im Jahr sparen! Möchtest du wechseln? Du könntest auch genauere Informationen anfordern.");
+            
         }
-        [LuisIntent("picture")]//I am sending you a picture!
-        public async Task picture(IDialogContext context, LuisResult result)
+        //Wow, Thanks for looking this up. I would like to change my service please.
+        public async Task packets(IDialogContext context, IAwaitable<string> value)
         {
-            await context.PostAsync("Thank you, your account has been changed. Changes will take effect from the next month on. Thank you for re-choosing innogy! Is there anything else on your mind?");
-            context.Wait(MessageReceived);
+            PromptDialog.Text(context,picture, "Das freut mich. Ich brauche für die Vertragsänderung noch deine Unterschrift. Dafür schick uns bitte einfach hier ein Foto von deiner Unterschrift und dem Sicherheitscode 3123121.");
         }
-        [LuisIntent("thirdgoodbye")]//No that is it...Actually wait...Tell me a joke!
-        public async Task thirdgoodbye(IDialogContext context, LuisResult result)
+        //User sends a picture
+        public async Task picture(IDialogContext context, IAwaitable<string> value)
         {
-            await context.PostAsync("How about this one? If Apple made a car.....Would it have Windows?");
+            PromptDialog.Text(context, thirdgoodbye, "Danke, dein Account wurde geändert. Das neue Paket beginnt ab dem nächsten Monat. Danke, dass du dich wieder für uns entschieden hast! Gibt es noch etwas, dass ich für dich tun kann?");
+        }
+        //No that is it...Actually wait...Tell me a joke!
+        public async Task thirdgoodbye(IDialogContext context, IAwaitable<string> value)
+        {
+            await context.PostAsync("Wie wäre es mit: Wenn Apple ein Auto baut");
             context.Wait(MessageReceived);
         }
 
