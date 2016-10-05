@@ -119,7 +119,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BatchInput.cs" />
+    <Compile Include="BatchResult.cs" />
+    <Compile Include="ConsumingRest.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="DataObject.cs" />
+    <Compile Include="DocumentInput.cs" />
+    <Compile Include="Handlers\KeywordHandler.cs" />
     <Compile Include="Handlers\DeductionChangeHandler.cs" />
     <Compile Include="Handlers\GoodbyeHandler.cs" />
     <Compile Include="Handlers\GreetingHandler.cs" />
@@ -130,10 +136,13 @@
     <Compile Include="Handlers\ITaskHandler.cs" />
     <Compile Include="Luis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextPersonalizer.cs" />
     <Compile Include="Yahoo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\shruggie - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\shruggie - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

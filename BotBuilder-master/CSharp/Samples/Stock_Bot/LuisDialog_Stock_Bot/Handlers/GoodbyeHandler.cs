@@ -12,13 +12,11 @@ namespace StockLuisDlg
         {
             List<string> list = new List<string>();
             Random rnd = new Random();
-            list.Add("Ich wünsche noch einen schönen Tag.");
-            list.Add("Bis dann!");
-            list.Add("Noch ein schönes Wochenende.");
-            list.Add("Noch ein schönes Wochenende.");
-            list.Add("Noch ein schönes Wochenende.");
-            list.Add("Noch ein schönes Wochenende.");
-            return list[rnd.Next(0,5)];
+            list.Add("You are welcome, have a fantastic weekend.");
+            list.Add("You are welcome, have a fantastic weekend.");
+            list.Add("You are welcome, have a fantastic weekend.");
+            list.Add("You are welcome, have a fantastic weekend.");
+            return list[rnd.Next(0,3)];
 
 
         }

@@ -12,12 +12,10 @@ namespace StockLuisDlg
         {
             List<string> list = new List<string>();
             Random rnd = new Random();
-            list.Add("Willkommen! Wie kann ich helfen?");
-            list.Add("Guten Tag, Markus. Was kann ich heute für dich tun?");
-            list.Add("Hi Markus. Womit kann ich helfen?");
-            list.Add("Hey, Markus. Wie kann man helfen? :)");
-            list.Add("Guten Tag, Markus. Wie kann ich dir heute helfen?");
-            return list[rnd.Next(0,4)];
+            list.Add("Hey Markus! How can I help you today?");
+            list.Add("Good Morning Markus. What can I do for you?");
+            list.Add("Hi Markus. How can I assist you?");
+            return list[rnd.Next(0,2)];
 
 
         }

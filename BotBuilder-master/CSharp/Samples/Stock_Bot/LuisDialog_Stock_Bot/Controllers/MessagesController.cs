@@ -21,6 +21,10 @@ namespace LuisDialog_Stock_Bot
         {
             if (activity.Type == ActivityTypes.Message)
             {
+                ConsumingRest rest = new ConsumingRest("http://shruggieuserrest.azurewebsites.de/");
+
+                await rest.postObj("api/users/111/ChatMessage", new DataObject() { message = activity.Text });
+
                 await Microsoft.Bot.Builder.Dialogs.Conversation.SendAsync(activity, () => new StockLuisDlg.StockDialog());
             }
             else
@@ -29,6 +33,7 @@ namespace LuisDialog_Stock_Bot
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
+
         }
 
         private Activity HandleSystemMessage(Activity message)
