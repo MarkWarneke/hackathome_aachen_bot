@@ -22,6 +22,18 @@ namespace StockLuisDlg
             context.Wait(MessageReceived);
         }
 
+        [LuisIntent("changeDeduction")]
+        public async Task deductionChange(IDialogContext context, LuisResult result)
+        {
+            PromptDialog.Number(context, AfterConfirming_TurnOffAlarm, "Auf welchen Betrag möchtest du deinen Abschlag ändern?");
+        }
+
+        public async Task AfterConfirming_TurnOffAlarm(IDialogContext context, IAwaitable<long> value)
+        {
+            await context.PostAsync($"Kein Problem, ich habe deinen Abschlag auf {await value}€ geändert.");
+            context.Wait(MessageReceived);
+        }
+
         [LuisIntent("greeting")]
         public async Task greet(IDialogContext context, LuisResult result)
         {
@@ -37,8 +49,15 @@ namespace StockLuisDlg
             context.Wait(MessageReceived);
         }
 
-        [LuisIntent("None")]
-        public async Task NoneHandler(IDialogContext context, LuisResult result)
+        [LuisIntent("thankYou")]
+        public async Task ThankYouHandler(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync("Kein Problem, ich helfe immer gerne!");
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("")]
+        public async Task DefaultHandler(IDialogContext context, LuisResult result)
         {
             await context.PostAsync("Sorry, what!?");
             context.Wait(MessageReceived);

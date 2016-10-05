@@ -1,15 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Microsoft.Bot.Connector;
-using Newtonsoft.Json;
-
-namespace LuisDialog_Stock_Bot
+﻿namespace MultiDialogsBot
 {
+    using System.Net;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using Dialogs;
+    using Microsoft.Bot.Builder.Dialogs;
+    using Microsoft.Bot.Connector;
+
     [BotAuthentication]
     public class MessagesController : ApiController
     {
@@ -21,12 +19,13 @@ namespace LuisDialog_Stock_Bot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Microsoft.Bot.Builder.Dialogs.Conversation.SendAsync(activity, () => new StockLuisDlg.StockDialog());
+                await Conversation.SendAsync(activity, () => new RootDialog());
             }
             else
             {
-                HandleSystemMessage(activity);
+                this.HandleSystemMessage(activity);
             }
+
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
@@ -55,8 +54,6 @@ namespace LuisDialog_Stock_Bot
             }
             else if (message.Type == ActivityTypes.Ping)
             {
-                var response = Request.CreateResponse(HttpStatusCode.OK);
-               // return response;
             }
 
             return null;
