@@ -56,7 +56,7 @@ namespace LuisDialog_Stock_Bot
             else if (message.Type == ActivityTypes.Ping)
             {
                 var response = Request.CreateResponse(HttpStatusCode.OK);
-                return response;
+               // return response;
             }
 
             return null;

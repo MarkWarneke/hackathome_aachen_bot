@@ -9,7 +9,8 @@ namespace StockLuisDlg
     {
         public async Task<string> handle(IDialogContext context, LuisResult result)
         {
-            return "Dein aktueller Abschlag ist: unendlich Euro!";
+            return await Task.FromResult("Dein aktueller Abschlag ist: 42 Euro!");
         }
+
     }
 }
